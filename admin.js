@@ -1,21 +1,178 @@
 // Admin Panel JavaScript
-// Handles editing, saving, and managing portfolio data
+// Handles authentication, editing, saving, and managing portfolio data
 
 let portfolioData = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Load data
-    portfolioData = initializeData();
+    // Check authentication first
+    checkAuthentication();
     
-    // Initialize tabs
-    initTabs();
+    // Initialize login form
+    initLoginForm();
     
-    // Populate forms with existing data
-    populateForms();
+    // Initialize password toggle
+    initPasswordToggle();
     
-    // Initialize event listeners
-    initEventListeners();
+    // Initialize change password modal
+    initPasswordChangeModal();
 });
+
+// ==========================================
+// AUTHENTICATION
+// ==========================================
+
+function checkAuthentication() {
+    if (Auth.isAuthenticated()) {
+        showAdminPanel();
+    } else {
+        showLoginForm();
+    }
+}
+
+function showLoginForm() {
+    document.getElementById('login-overlay').style.display = 'flex';
+    document.getElementById('admin-main').style.display = 'none';
+    document.getElementById('login-password').focus();
+}
+
+function showAdminPanel() {
+    document.getElementById('login-overlay').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'block';
+    
+    // Initialize admin panel
+    portfolioData = initializeData();
+    initTabs();
+    populateForms();
+    initEventListeners();
+}
+
+function initLoginForm() {
+    const form = document.getElementById('login-form');
+    const passwordInput = document.getElementById('login-password');
+    const errorEl = document.getElementById('login-error');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const password = passwordInput.value;
+        errorEl.textContent = '';
+        
+        // Show loading state
+        const loginBtn = document.getElementById('login-btn');
+        const originalText = loginBtn.innerHTML;
+        loginBtn.innerHTML = '<span>Verifying...</span>';
+        loginBtn.disabled = true;
+        
+        try {
+            const result = await Auth.login(password);
+            
+            if (result.success) {
+                showAdminPanel();
+                passwordInput.value = '';
+            } else {
+                errorEl.textContent = result.message;
+                passwordInput.focus();
+                passwordInput.select();
+            }
+        } catch (err) {
+            errorEl.textContent = 'An error occurred. Please try again.';
+        }
+        
+        loginBtn.innerHTML = originalText;
+        loginBtn.disabled = false;
+    });
+}
+
+function initPasswordToggle() {
+    const toggle = document.getElementById('password-toggle');
+    const input = document.getElementById('login-password');
+    const eyeOpen = toggle.querySelector('.eye-open');
+    const eyeClosed = toggle.querySelector('.eye-closed');
+    
+    toggle.addEventListener('click', () => {
+        if (input.type === 'password') {
+            input.type = 'text';
+            eyeOpen.style.display = 'none';
+            eyeClosed.style.display = 'block';
+        } else {
+            input.type = 'password';
+            eyeOpen.style.display = 'block';
+            eyeClosed.style.display = 'none';
+        }
+    });
+}
+
+function logout() {
+    Auth.logout();
+    showLoginForm();
+    showToast('Logged out successfully');
+}
+
+// ==========================================
+// PASSWORD CHANGE MODAL
+// ==========================================
+
+function initPasswordChangeModal() {
+    const modal = document.getElementById('password-modal');
+    const openBtn = document.getElementById('change-password-btn');
+    const closeBtn = document.getElementById('close-password-modal');
+    const generateBtn = document.getElementById('generate-hash-btn');
+    const copyBtn = document.getElementById('copy-hash-btn');
+    
+    if (openBtn) {
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+            // Reset form
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+            document.getElementById('hash-result').style.display = 'none';
+        });
+    }
+    
+    if (generateBtn) {
+        generateBtn.addEventListener('click', async () => {
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (!newPassword) {
+                showToast('Please enter a new password');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('Passwords do not match');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showToast('Password must be at least 6 characters');
+                return;
+            }
+            
+            // Generate hash
+            const hash = await Auth.generateHashSilent(newPassword);
+            
+            // Show result
+            document.getElementById('hash-output').value = hash;
+            document.getElementById('hash-result').style.display = 'block';
+        });
+    }
+    
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            const hashOutput = document.getElementById('hash-output');
+            hashOutput.select();
+            document.execCommand('copy');
+            showToast('Hash copied to clipboard!');
+        });
+    }
+}
 
 // ==========================================
 // TABS
@@ -288,6 +445,9 @@ function initEventListeners() {
     // Save button
     document.getElementById('save-btn').addEventListener('click', saveAllChanges);
     
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', logout);
+    
     // Reset button
     document.getElementById('reset-btn').addEventListener('click', () => {
         if (confirm('Are you sure you want to reset all data to default? This cannot be undone.')) {
@@ -406,16 +566,13 @@ function addExperience() {
     portfolioData.experience.unshift(newExp);
     renderExperienceList();
     
-    // Expand the new card
     const firstCard = document.querySelector('#experience-list .item-card');
     if (firstCard) firstCard.classList.add('expanded');
 }
 
 function updateExperience(index, field, value) {
     portfolioData.experience[index][field] = value;
-    // Update the header display
     renderExperienceList();
-    // Re-expand the card
     const cards = document.querySelectorAll('#experience-list .item-card');
     if (cards[index]) cards[index].classList.add('expanded');
 }
