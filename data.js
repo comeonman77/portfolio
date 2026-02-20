@@ -11,7 +11,7 @@ const PORTFOLIO_DATA = {
         linkedin: "https://www.linkedin.com/in/minjun-c-5b96b3111/",
         github: "https://github.com/comeonman77",
         location: "Singapore",
-        bio: "Passionate software developer specializing in full-stack web applications, Unity development, and custom game engines. Currently pursuing Computer Science at SIT-DigiPen Institute of Technology.",
+        bio: "Detail-oriented and resilient software engineer with hands-on experience across C++ application development, custom game engines, Unity, and full-stack web and mobile development. In an era driven by AI and rapid technological shifts, I thrive as a versatile engineer who bridges multiple domains — from graphics and asset pipelines to cloud-deployed web platforms — delivering robust solutions wherever the challenge lies.",
         available: true
     },
 
