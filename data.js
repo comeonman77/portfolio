@@ -9,7 +9,7 @@ const PORTFOLIO_DATA = {
         email: "minjunchoi9823@gmail.com",
         phone: "+65 93582176",
         linkedin: "https://www.linkedin.com/in/minjun-c-5b96b3111/",
-        github: "https://github.com",
+        github: "https://github.com/comeonman77",
         location: "Singapore",
         bio: "Passionate software developer specializing in full-stack web applications, Unity development, and custom game engines. Currently pursuing Computer Science at SIT-DigiPen Institute of Technology.",
         available: true
@@ -33,9 +33,10 @@ const PORTFOLIO_DATA = {
             role: "Digital Twin Technology Developer Freelancer",
             location: "Singapore",
             startDate: "Jan 2026",
-            endDate: "Current",
+            endDate: "Apr 2026",
             highlights: [
-                "Designed and implemented custom UI elements using Unity's UI Toolkit in C#, extending core functionalities to support complex project needs."
+                "Built in-editor tooling to automate the GameObject generation pipeline by streamlining JSON import and caching, enabling non-developers to use the workflow with minimal effort.",
+                "Refactored the codebase to support an updated game-object configuration hierarchy and implemented unique identifiers for reliable object tracking."
             ]
         },
         {
@@ -46,14 +47,14 @@ const PORTFOLIO_DATA = {
             startDate: "May 2025",
             endDate: "Dec 2025",
             highlights: [
-                "Designed and implemented custom UI elements using Unity's UI Toolkit in C#, extending core functionalities to support complex project needs.",
+                "Enhanced existing UI/UX features to align with project requirements, end-user expectations, and real user feedbacks by fixing numerous bugs and issues across the codebase, reducing usability issues across the digital twin application.",
                 "Boosted interactivity and configurability of UI features in DT application by leveraging Unity's App UI package alongside UI Toolkit, improving overall user experience.",
-                "Enhanced existing UI/UX features to align with project requirements, end-user expectations, and real user feedbacks, reducing usability issues across the digital twin application.",
+                "Designed and implemented custom UI elements using Unity's UI Toolkit in C#, extending core functionalities to support complex project needs.",
                 "Implemented backend API integration that binds real-time data to Unity UI elements, enabling dynamic, data-driven interfaces in the digital twin application.",
                 "Integrated NATS messaging system to sync Unity UI interfaces in the digital twin application with backend-driven changes in real time.",
                 "Migrated the digital twin application to employ a new backend system with latest RESTful API endpoints successfully.",
-                "Verified and corrected 3D asset mappings within the digital twin environment, reducing discrepancies between real-world structures and in-app representations.",
-                "Optimized the GameObjects generation and configuration pipeline in C# by automating loading JSON-driven content from backend and extraction of data from the loaded JSON content in Unity editor."
+                "Verified and corrected 3D asset mappings within the digital twin environment, reducing discrepancies in position and location between real-world structures and in-app representations.",
+                "Optimized the GameObjects generation and configuration pipeline by automating extraction of data from the JSON-driven contents retrieved from backend in Unity editor."
             ]
         }
     ],
@@ -77,20 +78,18 @@ const PORTFOLIO_DATA = {
         },
         {
             id: 2,
-            title: "3D Social Platform",
+            title: "DWorld",
             subtitle: "Interactive Virtual Spaces",
             description: "Full-stack web application",
             context: "SIT-DigiPen Institute of Technology",
-            role: "Full-stack Engineer",
+            role: "Full-stack Developer",
             date: "Jul 2025 — Nov 2025",
             highlights: [
-                "Architected and deployed a production-ready 3D social networking platform, enabling users to create customizable virtual rooms, showcase interests through interactive displays, and discover like-minded users through intelligent matching algorithms.",
-                "Built the frontend that aims to give 3D experience as immersive as possible, using React 18, Three.js, and React Three Fiber with orbital camera controls, real-time furniture manipulation, and optimizes WebGL rendering for 60 FPS performance.",
-                "Developed the backend architecture that implements RESTful API with Node.js/Express serving 20+ endpoints, implementing JWT authentication, bcrypt password hashing, and Redis-backed session management.",
-                "Designed normalized PostgreSQL schema with 8 relational tables, strategic indexing on high-traffic queries, and implemented automated timestamp triggers for data integrity.",
-                "Deployed scalable AWS architecture with Application Load Balancer distributing traffic across 2 EC2 instances, integrated with managed RDS PostgreSQL and ElastiCache Redis for high availability.",
-                "Implemented comprehensive security measures including parameterized SQL queries preventing injection attacks, Helmet.js security headers, CORS configuration, and rate limiting.",
-                "Achieved 80%+ cache hit rate through strategic Redis caching of user profiles, room configurations, and recommendations; implemented connection pooling for database efficiency."
+                "Architected and deployed a 3D social networking platform, enabling users to create customizable virtual rooms, showcase interests through interactive displays, and discover like-minded users through intelligent matching algorithms.",
+                "Built the frontend that aims to give 3D experience as immersive as possible, using React 18, Three.js, and React Three Fiber with orbital camera controls, real-time furniture manipulation (position/rotation/scale), and optimizes WebGL rendering for 60 FPS performance.",
+                "Developed the backend architecture that implements RESTful API with Node.js/Express serving 10+ endpoints, implementing JWT authentication, bcrypt password hashing, and Redis-backed session management for secure user authentication.",
+                "Deployed scalable AWS architecture with Application Load Balancer distributing traffic across 2 EC2 instances in different service zones (us-east-1 and Singapore).",
+                "Implemented comprehensive security measures, including parameterized SQL queries preventing injection attacks, Helmet.js security headers, CORS configuration, and rate limiting (100 requests/15min)."
             ]
         },
         {
@@ -102,9 +101,12 @@ const PORTFOLIO_DATA = {
             role: "Asset Engineer",
             date: "Sep 2024 — Apr 2025",
             highlights: [
-                "Implemented a pipeline to compile audio assets into easily retrievable binary files using C++ and FMOD libraries in Singleton and RAII design.",
-                "Implemented an audio importer in the editor for front-end developer using C++ and ImGui in Event-driven and RAII design.",
-                "Implemented a sound system for a 3D game built on ECS architecture using a mix of Singleton, Observer and RAII design."
+                "Architected end-to-end asset compilation pipeline supporting 10+ asset types (textures, 3D models, audio, shaders, materials, animations, skeletons) with persistent worker process design reducing per-asset compilation overhead.",
+                "Implemented GPU-optimized texture compression system using DirectXTex with intelligent auto-selection between BC1/BC3/BC5/BC6H/BC7 formats based on texture usage analysis, achieving 4-8x memory reduction while maintaining visual quality.",
+                "Developed intelligent texture classification algorithm using filename pattern matching and pixel-level analysis (grayscale detection, alpha transparency scanning) to automatically assign optimal compression formats without manual tagging.",
+                "Implemented hot-reload architecture using event-driven file watching with concurrent queue processing, enabling real-time asset iteration without engine restart.",
+                "Built UUID-based resource management system with bidirectional O(log n) lookups, supporting stable asset references across recompiles through UUID history mapping.",
+                "Designed descriptor-driven asset configuration system with JSON-based metadata, per-variant settings, and linked dependency tracking for composite assets (cubemaps, prefabs)."
             ]
         },
         {
@@ -113,25 +115,15 @@ const PORTFOLIO_DATA = {
             subtitle: "Custom 2D Game Engine in C++",
             description: "Team of 6",
             context: "SIT-DigiPen Institute of Technology",
-            role: "Game AI Programmer",
+            role: "Game Physics Programmer",
             date: "Sep 2023 — Apr 2024",
             highlights: [
-                "Implemented AI logics capitalizing on flood-fill and A* algorithms for game objects, such as NPCs and enemies.",
-                "Developed a scripting system for AI logic using function pointers in RAII manner.",
-                "Developed a game state and scene manager using stack and priority queue data structure for better memory management."
-            ]
-        },
-        {
-            id: 5,
-            title: "Scavenger",
-            subtitle: "2D Platformer, Shooting Game in C++",
-            description: "Team of 3",
-            context: "SIT-DigiPen Institute of Technology",
-            role: "Tool Programmer",
-            date: "Jan 2021 — Apr 2021",
-            highlights: [
-                "Implemented a custom math library to provide APIs for mathematical operations regarding linear algebra and projective geometry.",
-                "Implemented various tool functions for input devices, such as mouse and keyboard, in C++."
+                "Architected and implemented full physics simulation system managing 100+ concurrent game objects with delta-time based velocity, acceleration, and force calculations.",
+                "Developed high-performance AABB (Axis-Aligned Bounding Box) collision detection supporting both static and dynamic collision scenarios with early-exit optimizations.",
+                "Implemented specialized collision logic handling projectile piercing mechanics, entity-to-entity collision filtering, and boundary clamping for game arena constraints.",
+                "Integrated performance profiling using GLFW timing to track physics system execution time per frame, ensuring sub-millisecond performance targets.",
+                "Implemented sweep-and-prune dynamic collision algorithm with time-of-impact (tFirst) calculations for moving objects, preventing tunneling issues at high velocities.",
+                "Implemented AI logics capitalizing on flood-fill and A* algorithms for game objects, such as NPCs and enemies."
             ]
         }
     ],
