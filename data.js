@@ -5,7 +5,7 @@ const PORTFOLIO_DATA = {
     // Personal Information
     personal: {
         name: "MinJun Choi",
-        title: "Full-Stack Developer & Game Engineer",
+        title: "Versatile & Adaptive Cross-Domain Software Engineer",
         email: "minjunchoi9823@gmail.com",
         phone: "+65 93582176",
         linkedin: "https://www.linkedin.com/in/minjun-c-5b96b3111/",
