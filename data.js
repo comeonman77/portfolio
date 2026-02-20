@@ -125,6 +125,19 @@ const PORTFOLIO_DATA = {
                 "Implemented sweep-and-prune dynamic collision algorithm with time-of-impact (tFirst) calculations for moving objects, preventing tunneling issues at high velocities.",
                 "Implemented AI logics capitalizing on flood-fill and A* algorithms for game objects, such as NPCs and enemies."
             ]
+        },
+        {
+            id: 5,
+            title: "Scavenger",
+            subtitle: "2D Platformer, Shooting Game in C++",
+            description: "Team of 3",
+            context: "SIT-DigiPen Institute of Technology",
+            role: "Tool Programmer",
+            date: "Jan 2021 — Apr 2021",
+            highlights: [
+                "Implemented a custom math library to provide APIs for mathematical operations regarding linear algebra and projective geometry.",
+                "Implemented various tool functions for input devices, such as mouse and keyboard, in C++."
+            ]
         }
     ],
 
